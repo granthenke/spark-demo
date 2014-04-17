@@ -1,0 +1,64 @@
+apply from: "$rootDir/gradle/repositories.gradle"
+apply from: "$rootDir/gradle/dependencies.gradle"
+apply from: "$rootDir/gradle/artifacts.gradle"
+apply plugin: "idea"
+apply plugin: "eclipse"
+
+repositories {
+    maven { url repos.cloudera }
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile([
+        libs.commonsLang,
+        libs.guava,
+        libs.slf4jLog4j,
+        libs.log4j,
+        libs.sparkStreamingTwitter
+    ])
+
+    providedCompile([
+        libs.spark,
+        libs.sparkStreaming,
+        libs.sparkMlLib,
+        libs.sparkMlLib,
+        libs.sparkGraphX
+    ])
+
+    testCompile([
+        libs.testNG
+    ])
+}
+
+// Configure Testing
+test {
+    useTestNG()
+    maxParallelForks = 8
+}
+
+// Gradle Wrapper Settings
+task wrapper(type: Wrapper) {
+    gradleVersion = "1.11"
+}
+
+// Intellij Settings
+idea {
+    module {
+        // Add Intellij provided scope support
+        scopes.PROVIDED.plus += configurations.providedCompile
+    }
+}
+
+task runSpark(dependsOn: 'build', type: JavaExec) {
+    classpath = files(hadoopJar.archivePath, configurations.providedCompile)
+    // Set main class
+    if (project.hasProperty('sparkMain')) {
+        main = sparkMain
+    } 
+    // Set args
+    if (project.hasProperty('sparkArgs')) {
+        args(sparkArgs.split(' '))
+    }
+}

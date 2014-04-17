@@ -1,0 +1,30 @@
+ext {
+    versions = [:]
+    libs = [:]
+}
+versions += [
+        scala: "2.10",
+        spark: "0.9.1"
+]
+libs += [
+        commonsLang: "org.apache.commons:commons-lang3:3.3.1",
+        guava: "com.google.guava:guava:14.0.1",
+        hadoopClient: "org.apache.hadoop:hadoop-client:2.0.0-cdh4.6.0",
+        jCommander: "com.beust:jcommander:1.30",
+        jodaTime: "joda-time:joda-time:2.3",
+        log4j: "log4j:log4j:1.2.17",
+        openCsv: "net.sf.opencsv:opencsv:2.3",
+        scala: "org.scala-lang:scala-library:$versions.scala.3",
+        slf4jLog4j: "org.slf4j:slf4j-log4j12:1.7.5",
+        spark: "org.apache.spark:spark-core_$versions.scala:$versions.spark",
+        sparkBagel: "org.apache.spark:spark-bagel_$versions.scala:$versions.spark",
+        sparkGraphX: "org.apache.spark:spark-graphx_$versions.scala:$versions.spark",
+        sparkMlLib: "org.apache.spark:spark-mllib_$versions.scala:$versions.spark",
+        sparkStreaming: "org.apache.spark:spark-streaming_$versions.scala:$versions.spark",
+        sparkStreamingFlume: "org.apache.spark:spark-streaming-flume_$versions.scala:$versions.spark",
+        sparkStreamingKafka: "org.apache.spark:spark-streaming-kafka_$versions.scala:$versions.spark",
+        sparkStreamingTwitter: "org.apache.spark:spark-streaming-twitter_$versions.scala:$versions.spark",
+        sparkStreamingZeroMQ: "org.apache.spark:spark-streaming-zeromq_$versions.scala:$versions.spark",
+        testNG: "org.testng:testng:6.8.7",
+        typesafeConfig: "com.typesafe:config:1.0.0"
+]

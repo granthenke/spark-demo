@@ -1,0 +1,65 @@
+apply plugin: "java"
+apply plugin: "scala"
+
+sourceCompatibility = 1.6
+dependencies {
+    compile libs.scala
+}
+
+// Create a jar with the source code
+task sourcesJar(type: Jar, dependsOn: classes) {
+    from sourceSets.main.allSource
+    classifier "sources"
+    extension "jar"
+}
+
+// Create a jar with the javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier "javadoc"
+    extension "jar"
+}
+
+// Create a fatjar(all dependencies included) for use in hadoop jobs
+task hadoopJar(type: Jar, dependsOn: jar) {
+    from {
+        configurations.runtime.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    from sourceSets.main.output
+    classifier "hadoop"
+    extension "jar"
+}
+
+// Add configurations for extra artifacts
+configurations.create("sources")
+configurations.create("javadoc")
+configurations.create("hadoop")
+configurations.archives {
+    extendsFrom configurations.sources
+    extendsFrom configurations.javadoc
+    extendsFrom configurations.hadoop
+}
+
+// Add extra artifacts to be created during build
+artifacts {
+    sources(sourcesJar) {
+        // Weird Gradle quirk where type will be used for the extension, but only for sources
+        type "jar"
+    }
+    javadoc(javadocJar) {
+        type "javadoc"
+    }
+    hadoop(hadoopJar) {
+        type "jar"
+    }
+}
+javadoc.doFirst { println "" }
+
+// Add Provided Dependency Support
+configurations { providedCompile }
+sourceSets.main.compileClasspath += configurations.providedCompile
+sourceSets.test.compileClasspath += configurations.providedCompile
+sourceSets.test.runtimeClasspath += configurations.providedCompile
