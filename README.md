@@ -57,6 +57,7 @@ Below are some sample commands for each demo:
 
 - SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="local[2] 100"```
 - NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="local[2] localhost 9999"```
+- MeetupRSVP: ```gradle runSpark -PsparkMain="com.cloudera.sa.MeetupRSVP" -PsparkArgs="local[2]"```
 
 >    **Note:** The remaining steps are only required for running demos in "pseudo-distributed" mode and on a cluster.
 
@@ -87,6 +88,7 @@ Below are some sample commands for each demo:
 
 - SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="spark://example:7077 100"```
 - NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="spark://example:7077 localhost 9999"```
+- MeetupRSVP: ```gradle runSpark -PsparkMain="com.cloudera.sa.MeetupRSVP" -PsparkArgs="spark://example:7077"```
 
 ### Step 6 - Run the Demos on a cluster: ###
 The build creates a fat jar tagged with '-hadoop' that contains all dependencies needed to run on the cluster. The jar can be found in './build/libs/'.
