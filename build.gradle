@@ -16,6 +16,7 @@ dependencies {
         libs.guava,
         libs.slf4jLog4j,
         libs.log4j,
+        libs.scalaWebSockets,
         libs.sparkStreamingTwitter
     ])
 
@@ -56,7 +57,7 @@ task runSpark(dependsOn: 'build', type: JavaExec) {
     // Set main class
     if (project.hasProperty('sparkMain')) {
         main = sparkMain
-    } 
+    }
     // Set args
     if (project.hasProperty('sparkArgs')) {
         args(sparkArgs.split(' '))

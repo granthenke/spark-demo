@@ -16,6 +16,7 @@ libs += [
         openCsv: "net.sf.opencsv:opencsv:2.3",
         scala: "org.scala-lang:scala-library:$versions.scala.3",
         slf4jLog4j: "org.slf4j:slf4j-log4j12:1.7.5",
+        scalaWebSockets: "eu.piotrbuda:scalawebsocket_2.10:0.1.0", //TODO(GH): Find the best library for this
         spark: "org.apache.spark:spark-core_$versions.scala:$versions.spark",
         sparkBagel: "org.apache.spark:spark-bagel_$versions.scala:$versions.spark",
         sparkGraphX: "org.apache.spark:spark-graphx_$versions.scala:$versions.spark",
