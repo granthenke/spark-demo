@@ -52,8 +52,8 @@ idea {
     }
 }
 
-task runSpark(dependsOn: 'build', type: JavaExec) {
-    classpath = files(hadoopJar.archivePath, configurations.providedCompile)
+task runSpark(dependsOn: 'classes', type: JavaExec) {
+    classpath = files(configurations.runtime, sourceSets.main.output) // Same as hadoop jar
     // Set main class
     if (project.hasProperty('sparkMain')) {
         main = sparkMain
