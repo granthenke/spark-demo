@@ -1,6 +1,7 @@
 apply from: "$rootDir/gradle/repositories.gradle"
 apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/artifacts.gradle"
+apply from: "$rootDir/gradle/avro.gradle"
 apply plugin: "idea"
 apply plugin: "eclipse"
 
@@ -12,6 +13,9 @@ repositories {
 
 dependencies {
     compile([
+        libs.avro,
+        libs.parquetAvro,
+        libs.commonsIO,
         libs.commonsLang,
         libs.guava,
         libs.slf4jLog4j,
@@ -54,6 +58,8 @@ idea {
 
 task runSpark(dependsOn: 'classes', type: JavaExec) {
     classpath = files(configurations.runtime, sourceSets.main.output) // Same as hadoop jar
+    maxHeapSize = "2048m"
+
     // Set main class
     if (project.hasProperty('sparkMain')) {
         main = sparkMain

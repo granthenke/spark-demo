@@ -58,6 +58,7 @@ Below are some sample commands for each demo:
 - SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="local[2] 100"```
 - NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="local[2] localhost 9999"```
 - MeetupRSVP: ```gradle runSpark -PsparkMain="com.cloudera.sa.MeetupRSVP" -PsparkArgs="local[2]"```
+- Sessionize: ```gradle runSpark -PsparkMain="com.cloudera.sa.Sessionize" -PsparkArgs="local[2]"```
 
 >    **Note:** The remaining steps are only required for running demos in "pseudo-distributed" mode and on a cluster.
 
@@ -73,7 +74,7 @@ Below are some sample commands for each demo:
 1. Start the Spark Master: ```$SPARK_HOME/sbin/start-master.sh```
 2. Open the [Spark Master WebUI](http://localhost:8080)
 3. Copy the Spark URL at the top. (ex: spark://example:7077)
-4. Start a Spark Worker using the spark url: ```spark-class org.apache.spark.deploy.worker.Worker spark://example:7077```
+4. Start a Spark Worker using the spark url: ```spark-class org.apache.spark.deploy.worker.Worker spark://ghenke-MBP.local:7077```
 5. Validate the worker is running in the [Spark Master WebUI](http://localhost:8080)
 
 ### Step 5 - Run the Demos in Pseudo-Distributed mode: ###
@@ -89,6 +90,7 @@ Below are some sample commands for each demo:
 - SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="spark://example:7077 100"```
 - NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="spark://example:7077 localhost 9999"```
 - MeetupRSVP: ```gradle runSpark -PsparkMain="com.cloudera.sa.MeetupRSVP" -PsparkArgs="spark://example:7077"```
+- Sessionize: ```gradle runSpark -PsparkMain="com.cloudera.sa.Sessionize" -PsparkArgs="spark://example:7077"```
 
 ### Step 6 - Run the Demos on a cluster: ###
 The build creates a fat jar tagged with '-hadoop' that contains all dependencies needed to run on the cluster. The jar can be found in './build/libs/'.

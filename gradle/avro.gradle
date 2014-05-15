@@ -1,0 +1,48 @@
+// A drop in script to add simple and configurable Avro file compilation support
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath([
+            libs.avroTools
+        ])
+    }
+}
+
+import org.apache.avro.tool.SpecificCompilerTool
+
+def AvroSource = file("src/main/resources/avro")
+def AvroDest = file("src/main/avro")
+
+sourceSets {
+    main {
+        java {
+            srcDir AvroDest
+        }
+    }
+}
+
+task cleanAvro(type: Delete) {
+    delete fileTree(dir: AvroDest)
+}
+
+task compileAvro() {
+    doLast {
+        // The SpecificCompilerTool writes to System.err so we need to redirect it temporarily
+        def oldErrStream = System.err
+        def tempErrStream = new ByteArrayOutputStream()
+        System.setErr(new PrintStream(tempErrStream)) // Catch System.err output from tool
+
+        // Compile schemas //TODO(GH): Add AVDL support
+        def args = ["-string", "schema", AvroSource.path, AvroDest.path].asList()
+        new SpecificCompilerTool().run(null, null, null, args)
+
+        // Reset System.err to old stream
+        System.setErr(oldErrStream)
+        logger.info(new String(tempErrStream.toByteArray()))
+    }
+}
+compileJava.dependsOn compileAvro
