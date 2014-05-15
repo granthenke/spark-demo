@@ -26,8 +26,8 @@ object Sessionize {
     "12.34.56.78 - - [09/Jan/2014:04:02:26 -0800] \"GET / HTTP/1.1\" 200 43977 \"-\" \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\"",
     "123.4.56.7 - - [09/Jan/2014:04:02:26 -0800] \"GET /financing/incentives HTTP/1.1\" 200 20540 \"https://www.google.com/\" \"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36\"",
     "123.45.67.89 - - [09/Jan/2014:04:02:28 -0800] \"GET /static/VEAMUNaPbswx4l9JeZqItoN6YKiVmYY84EJKnPKSPPM.css HTTP/1.1\" 200 6497 \"http://www.example.com/financing/incentives\" \"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36\"",
-    "123.45.67.89 - - [09/Jan/2014:04:02:28 -0800] \"GET /static/u5Uj9e2Cc98JPkk2CIHl4SGWcqeQ0YU9O7Ua61z9Qdi.js HTTP/1.1\" 200 6192 \"http://www.example.com/financing/incentives\" \"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36\"",
-    "123.45.67.89 - - [09/Jan/2014:04:02:28 -0800] \"GET /static/ZiQCg9sERShna8pay7mOZZdbUwqH6n6s9bbmpJhOzpo.css HTTP/1.1\" 200 626 \"http://www.example.com/financing/incentives\" \"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36\""
+    "123.45.67.89 - - [09/Jan/2014:04:42:28 -0800] \"GET /static/u5Uj9e2Cc98JPkk2CIHl4SGWcqeQ0YU9O7Ua61z9Qdi.js HTTP/1.1\" 200 6192 \"http://www.example.com/financing/incentives\" \"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36\"",
+    "123.45.67.89 - - [09/Jan/2014:04:56:28 -0800] \"GET /static/ZiQCg9sERShna8pay7mOZZdbUwqH6n6s9bbmpJhOzpo.css HTTP/1.1\" 200 626 \"http://www.example.com/financing/incentives\" \"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36\""
   )
 
   /**
