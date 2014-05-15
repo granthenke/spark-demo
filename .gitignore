@@ -69,3 +69,7 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+
+# Avro Generated Classes #
+##########################
+src/main/avro
