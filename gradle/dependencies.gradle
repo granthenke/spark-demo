@@ -4,7 +4,7 @@ ext {
 }
 versions += [
         scala: "2.10",
-        spark: "0.9.1"
+        spark: "1.0.0"
 ]
 libs += [
         avro: "org.apache.avro:avro:1.7.4",

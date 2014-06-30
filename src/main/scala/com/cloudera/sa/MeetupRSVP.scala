@@ -42,7 +42,6 @@ object MeetupRSVP {
     val conf = new SparkConf()
       .setMaster(args(0))
       .setAppName(this.getClass.getCanonicalName)
-      .setJars(SparkContext.jarOfClass(this.getClass))
 
     // Create the context with a 1 second batch size
     val ssc = new StreamingContext(conf, Seconds(5))

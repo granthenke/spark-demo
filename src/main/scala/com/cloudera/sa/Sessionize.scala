@@ -14,6 +14,7 @@ import com.esotericsoftware.kryo.Kryo
 import org.apache.spark.serializer.{KryoSerializer, KryoRegistrator}
 import java.text.SimpleDateFormat
 import org.slf4j.LoggerFactory
+import org.apache.avro.generic.GenericRecord
 
 /**
  *
@@ -93,7 +94,6 @@ object Sessionize {
     val conf = new SparkConf()
       .setMaster(args(0))
       .setAppName("Sessionize")
-      .setJars(SparkContext.jarOfClass(this.getClass))
       .set("spark.serializer", classOf[KryoSerializer].getName) // Set Kryo as the serializer
       .set("spark.kryo.registrator", classOf[SessionizeRegistrar].getName)  // Don't need to register classes but its a performance gain.
 
@@ -112,7 +112,7 @@ object Sessionize {
     // Sessionize the data
     val dataSet = if (args.length == 2) spark.textFile(args(1)) else spark.parallelize(testLines)
     val parsed = dataSet.flatMap(parseLine) // flat map to drop None options. See parseLine function.
-    val sessionized = parsed.groupBy(_.getIp).flatMapValues(l => sessionize(l, Minutes(30)))
+    val sessionized = parsed.groupBy(_.getIp).flatMapValues(l => sessionize(l.toSeq, Minutes(30)))
 
     // Create a rdd with all keys set to null since we don't want to write them out
     val writable = sessionized.map { case (key, line) => (null, line)}

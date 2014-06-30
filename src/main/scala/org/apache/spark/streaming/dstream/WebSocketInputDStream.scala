@@ -4,6 +4,12 @@ import org.apache.spark.storage.StorageLevel
 import scalawebsocket.WebSocket
 import org.apache.spark.streaming.StreamingContext
 import scala.reflect.ClassTag
+import org.apache.spark.streaming.receiver.{Receiver, BlockGenerator}
+import org.apache.spark.Logging
+import java.net.Socket
+import scala.collection.mutable
+import scala.collection.immutable.Queue
+import akka.actor.IO.Iteratee
 
 object WebSocketInputDStream {
   class WebSocketInputDStream[T: ClassTag](
@@ -12,9 +18,9 @@ object WebSocketInputDStream {
       textMessageHandler: String => Option[T],
       binaryMessageHandler: Array[Byte] => Option[T],
       storageLevel: StorageLevel
-    ) extends NetworkInputDStream[T](ssc_) {
+    ) extends ReceiverInputDStream[T](ssc_) {
 
-    def getReceiver(): NetworkReceiver[T] = {
+    def getReceiver(): Receiver[T] = {
       new WebSocketReceiver(url, textMessageHandler, binaryMessageHandler, storageLevel)
     }
   }
@@ -24,26 +30,35 @@ object WebSocketInputDStream {
       textMessageHandler: String => Option[T],
       binaryMessageHandler: Array[Byte] => Option[T],
       storageLevel: StorageLevel
-    ) extends NetworkReceiver[T] {
+    ) extends Receiver[T](storageLevel) with Logging {
 
-    lazy protected val blockGenerator = new BlockGenerator(storageLevel)
-    lazy protected val socket = WebSocket()
+    private var webSocket: WebSocket = _
 
-    override def getLocationPreference = None
-
-    protected def onStart() {
-      logInfo("Connecting to: " + url)
-      socket.open(url)
-      logInfo("Connected to: " + url)
-
-      blockGenerator.start()
-      socket.onTextMessage(m => textMessageHandler(m).map(blockGenerator += _))
-      socket.onBinaryMessage(m => binaryMessageHandler(m).map(blockGenerator += _))
+    def onStart() {
+      try{
+        logInfo("Connecting to: " + url)
+        val newWebSocket = WebSocket()
+        newWebSocket.onTextMessage(m => textMessageHandler(m).map(store))
+        newWebSocket.onBinaryMessage(m => binaryMessageHandler(m).map(store))
+        // socket.onError() TODO(GH): What to do here? restart?
+        newWebSocket.open(url)
+        setWebSocket(newWebSocket)
+        logInfo("Connected to: " + url)
+    } catch {
+      case e: Exception => restart("Error starting WebSocket stream", e)
+    }
     }
 
-    protected def onStop() {
-      socket.shutdown()
-      blockGenerator.stop()
+    def onStop() {
+      setWebSocket(null)
+      logInfo("WebSocket receiver stopped")
+    }
+
+    private def setWebSocket(newWebSocket: WebSocket) = synchronized {
+      if (webSocket != null) {
+        webSocket.shutdown()
+      }
+      webSocket = newWebSocket
     }
   }
 
