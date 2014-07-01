@@ -3,7 +3,7 @@ spark-demo
 A simple project intended to demo spark and get developers up and running quickly
 
 >*Note*:
->   This project uses [Gradle](http://www.gradle.org). You must install [Gradle(1.11)](http://www.gradle.org/downloads).
+>   This project uses [Gradle](http://www.gradle.org). You must install [Gradle(1.12)](http://www.gradle.org/downloads).
 >   If you would rather not install Gradle locally you can use the [Gradle Wrapper](http://www.gradle.org/docs/current/userguide/gradle_wrapper.html) by replacing all refernces to ```gradle``` with ```gradlew```.
 
 How To Build:
