@@ -37,6 +37,10 @@ Key Spark Links:
 Using The Project:
 ------------------
 
+>*Note*:
+>  This guide has only been tested on Mac OS X and may assume tools that are specific to it. 
+>  If working in another OS substitutes may need to be used but should be available.
+
 ### Step 1 - Build the Project: ###
 1. Run ```gradle build```
 
@@ -53,29 +57,29 @@ The 'runSpark' Gradle task takes two arguments '-PsparkMain' and '-PsparkArgs':
 - *-PsparkMain*: The main class to run.
 - *-PsparkArgs*: The arguments to be passed to the main class. See the class for documentation and what arguments are expected.
 
-Below are some sample commands for each demo:
+Below are some sample commands for some simple demos:
 
 - SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="local[2] 100"```
-- NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="local[2] localhost 9999"```
-- MeetupRSVP: ```gradle runSpark -PsparkMain="com.cloudera.sa.MeetupRSVP" -PsparkArgs="local[2]"```
 - Sessionize: ```gradle runSpark -PsparkMain="com.cloudera.sa.Sessionize" -PsparkArgs="local[2]"```
+- NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="local[2] localhost 9999"```
 
->    **Note:** The remaining steps are only required for running demos in "pseudo-distributed" mode and on a cluster.
+>**Note:** 
+>   The remaining steps are only required for running demos in "pseudo-distributed" mode and on a cluster.
 
 ### Step 3 - Install Spark: ###
-1. Download and unpack [Spark 0.9.1](http://d3kbcqa49mib13.cloudfront.net/spark-0.9.1.tgz)
-2. Run the build from the project directory: ```sbt/sbt assembly```
-3. Add SPARK_HOME environment variable to .bash_profile
-4. Add $SPARK_HOME/sbin and $SPARK_HOME/sbin to PATH
-    - TODO: Clean this up with admin script here
-5. Add SCALA_HOME and JAVA_HOME to .bash_profile
+1. Install Spark 1.0 using [Homebrew](http://brew.sh/): ```brew install apache-spark```
+3. Add SPARK_HOME to your .bash_profile: ```export SPARK_HOME=/usr/local/Cellar/apache-spark/1.0.0/libexec```
+5. Add SCALA_HOME and JAVA_HOME to your .bash_profile
+
+>**Note:** 
+>   You may also install on your own following the [Spark Documentation](http://spark.apache.org/docs/latest/#downloading)
 
 ### Step 4 - Configure & Start Spark: ###
-1. Start the Spark Master: ```$SPARK_HOME/sbin/start-master.sh```
-2. Open the [Spark Master WebUI](http://localhost:8080)
-3. Copy the Spark URL at the top. (ex: spark://example:7077)
-4. Start a Spark Worker using the spark url: ```spark-class org.apache.spark.deploy.worker.Worker spark://ghenke-MBP.local:7077```
-5. Validate the worker is running in the [Spark Master WebUI](http://localhost:8080)
+1. The defaults should work for now. However, See [Cluster Launch Scripts](https://spark.apache.org/docs/latest/spark-standalone.html#cluster-launch-scripts) documentation for more information on configuring your pseudo cluster.
+2. Start your Spark cluster: ```$SPARK_HOME/sbin/start-all.sh```
+3. Validate the master & worker are running in the [Spark Master WebUI](http://localhost:8080)
+4. Note the master URL on the [Spark Master WebUI](http://localhost:8080). It will be used when submitting jobs.
+5. Shutdown when done: ```$SPARK_HOME/sbin/stop-all.sh```
 
 ### Step 5 - Run the Demos in Pseudo-Distributed mode: ###
 Running in pseudo-distributed mode is almost exactly the same as local mode.
@@ -85,12 +89,12 @@ To run in pseudo-distributed mode just replace 'local[#]' in the Spark Master UR
 
 Below are some sample commands for each demo:
 
-*Note:* You will need to substitute in your Spark Master URL
+>*Note:* 
+>   You will need to substitute in your Spark Master URL
 
 - SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="spark://example:7077 100"```
-- NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="spark://example:7077 localhost 9999"```
-- MeetupRSVP: ```gradle runSpark -PsparkMain="com.cloudera.sa.MeetupRSVP" -PsparkArgs="spark://example:7077"```
 - Sessionize: ```gradle runSpark -PsparkMain="com.cloudera.sa.Sessionize" -PsparkArgs="spark://example:7077"```
+- NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="spark://example:7077 localhost 9999"```
 
 ### Step 6 - Run the Demos on a cluster: ###
 The build creates a fat jar tagged with '-hadoop' that contains all dependencies needed to run on the cluster. The jar can be found in './build/libs/'.
@@ -102,7 +106,16 @@ Develop demos of your own and send a pull request!
 
 Notable Tools & Frameworks:
 ---------------------------
+- [Homebrew](http://brew.sh/)
 - [Gradle](http://www.gradle.org/)
 - [Guava](https://code.google.com/p/guava-libraries/)
 - [Apache Commons Lang](http://commons.apache.org/proper/commons-lang/)
 - [TypeSafe Config](https://github.com/typesafehub/config)
+
+Todo List:
+----------
+- Create trait/class with generic context, smart defaults, and unified arg parsing (see spark-submit script for ref)
+- Document whats demonstrated in each demo (avro, parquet, kryo, etc) and usage
+- Add module level readme and docs
+- Tune logging output configuration (Redirect verbose logs into a rolling file)
+- Speed up HadoopJar task (and runSpark will follow)
