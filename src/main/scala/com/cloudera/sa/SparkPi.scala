@@ -32,7 +32,8 @@ object SparkPi {
     // Process Args
     val conf = new SparkConf()
       .setMaster(args(0))
-      .setAppName("SparkPi")
+      .setAppName(this.getClass.getCanonicalName)
+      .setJars(Seq(SparkContext.jarOfClass(this.getClass).get))
 
     val spark = new SparkContext(conf)
     val slices = if (args.length > 1) args(1).toInt else 2

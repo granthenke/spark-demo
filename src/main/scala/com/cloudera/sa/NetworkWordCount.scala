@@ -50,6 +50,7 @@ object NetworkWordCount {
     val conf = new SparkConf()
       .setMaster(args(0))
       .setAppName(this.getClass.getCanonicalName)
+      .setJars(Seq(SparkContext.jarOfClass(this.getClass).get))
 
     // Create the context with a 1 second batch size
     val ssc = new StreamingContext(conf, Seconds(5))

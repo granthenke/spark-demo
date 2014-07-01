@@ -20,16 +20,15 @@ dependencies {
         libs.guava,
         libs.slf4jLog4j,
         libs.log4j,
-        libs.scalaWebSockets,
-        libs.sparkStreamingTwitter
+        libs.scalaWebSockets
     ])
 
     providedCompile([
         libs.spark,
+        libs.sparkMlLib,
+        libs.sparkGraphX,
         libs.sparkStreaming,
-        libs.sparkMlLib,
-        libs.sparkMlLib,
-        libs.sparkGraphX
+        libs.sparkStreamingKafka
     ])
 
     testCompile([
@@ -45,7 +44,7 @@ test {
 
 // Gradle Wrapper Settings
 task wrapper(type: Wrapper) {
-    gradleVersion = "1.11"
+    gradleVersion = "1.12"
 }
 
 // Intellij Settings
@@ -56,8 +55,8 @@ idea {
     }
 }
 
-task runSpark(dependsOn: 'classes', type: JavaExec) {
-    classpath = files(configurations.runtime, sourceSets.main.output) // Same as hadoop jar
+task runSpark(dependsOn: 'hadoopJar', type: JavaExec) {
+    classpath = files(hadoopJar.archivePath, configurations.providedCompile)
     maxHeapSize = "2048m"
 
     // Set main class

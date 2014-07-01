@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.cloudera.sa
+package com.cloudera.sa.websocket
 
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.dstream.WebSocketInputDStream._
@@ -42,6 +42,7 @@ object MeetupRSVP {
     val conf = new SparkConf()
       .setMaster(args(0))
       .setAppName(this.getClass.getCanonicalName)
+      .setJars(Seq(SparkContext.jarOfClass(this.getClass).get))
 
     // Create the context with a 1 second batch size
     val ssc = new StreamingContext(conf, Seconds(5))

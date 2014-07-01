@@ -93,9 +93,11 @@ object Sessionize {
     // Process Args and create spark context
     val conf = new SparkConf()
       .setMaster(args(0))
-      .setAppName("Sessionize")
+      .setAppName(this.getClass.getCanonicalName)
+      .setJars(Seq(SparkContext.jarOfClass(this.getClass).get))
       .set("spark.serializer", classOf[KryoSerializer].getName) // Set Kryo as the serializer
       .set("spark.kryo.registrator", classOf[SessionizeRegistrar].getName)  // Don't need to register classes but its a performance gain.
+
 
     val spark = new SparkContext(conf)
     val job = new Job()
