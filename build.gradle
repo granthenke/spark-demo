@@ -20,7 +20,9 @@ dependencies {
         libs.guava,
         libs.slf4jLog4j,
         libs.log4j,
-        libs.scalaWebSockets
+        libs.scalaWebSockets,
+        libs.kafkaTest,
+        libs.curatorTest
     ])
 
     providedCompile([

@@ -119,3 +119,9 @@ Todo List:
 - Add module level readme and docs
 - Tune logging output configuration (Redirect verbose logs into a rolling file)
 - Speed up HadoopJar task (and runSpark will follow)
+
+Demos Working On:
+-----------------
+- Kafka Consuming/Producing
+- Live upgrade of streaming application. See [Streaming Deployment](https://spark.apache.org/docs/latest/streaming-programming-guide.html#deployment)
+

@@ -20,6 +20,8 @@ package com.cloudera.sa
 import scala.math.random
 
 import org.apache.spark._
+import org.apache.spark.SparkContext._
+import org.apache.spark.rdd.RDD
 
 /** Computes an approximation to pi */
 object SparkPi {

@@ -107,6 +107,12 @@ object Sessionize {
     val outputDir = new File(tempDir, "output").getAbsolutePath
     LOGGER.info("outputDir: {}", outputDir)
 
+
+    case class Data(name:String, data: List[Int])
+    val sample_obj = Data("abc", List(1,2,3))
+    val sample_data = sample_obj.data.map{ e => (sample_obj.name, e) }
+    spark.parallelize(sample_data).groupByKey()
+
     // Set up output serialization
     ParquetOutputFormat.setWriteSupportClass(job, classOf[AvroWriteSupport])
     AvroParquetOutputFormat.setSchema(job, LogLine.SCHEMA$)
