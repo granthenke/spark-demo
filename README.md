@@ -61,6 +61,7 @@ Below are some sample commands for some simple demos:
 
 - SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="local[2] 100"```
 - Sessionize: ```gradle runSpark -PsparkMain="com.cloudera.sa.Sessionize" -PsparkArgs="local[2]"```
+- HdfsWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.HdfsWordCount" -PsparkArgs="local[2] streaming-input"```
 - NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="local[2] localhost 9999"```
 
 >**Note:** 
@@ -94,6 +95,7 @@ Below are some sample commands for each demo:
 
 - SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="spark://example:7077 100"```
 - Sessionize: ```gradle runSpark -PsparkMain="com.cloudera.sa.Sessionize" -PsparkArgs="spark://example:7077"```
+- HdfsWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.HdfsWordCount" -PsparkArgs="spark://example:7077 streaming-input"```
 - NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="spark://example:7077 localhost 9999"```
 
 ### Step 6 - Run the Demos on a cluster: ###

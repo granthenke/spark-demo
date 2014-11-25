@@ -46,16 +46,9 @@ test {
 
 // Gradle Wrapper Settings
 task wrapper(type: Wrapper) {
-    gradleVersion = "1.12"
+    gradleVersion = "2.1"
 }
 
-// Intellij Settings
-idea {
-    module {
-        // Add Intellij provided scope support
-        scopes.PROVIDED.plus += configurations.providedCompile
-    }
-}
 
 task runSpark(dependsOn: 'hadoopJar', type: JavaExec) {
     classpath = files(hadoopJar.archivePath, configurations.providedCompile)

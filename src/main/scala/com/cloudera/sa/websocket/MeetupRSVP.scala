@@ -17,6 +17,7 @@
 
 package com.cloudera.sa.websocket
 
+import com.cloudera.sa.StreamingExamples
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.dstream.WebSocketInputDStream._
 import org.apache.spark.storage.StorageLevel
@@ -38,6 +39,8 @@ object MeetupRSVP {
       System.exit(1)
     }
 
+    StreamingExamples.setStreamingLogLevels()
+
     // Process Args
     val conf = new SparkConf()
       .setMaster(args(0))
@@ -45,7 +48,7 @@ object MeetupRSVP {
       .setJars(Seq(SparkContext.jarOfClass(this.getClass).get))
 
     // Create the context with a 1 second batch size
-    val ssc = new StreamingContext(conf, Seconds(5))
+    val ssc = new StreamingContext(conf, Seconds(1))
 
     // Create a MeetupRSVPStream and print out the lines
     val lines = ssc.webSocketTextStream("ws://stream.meetup.com/2/rsvps", StorageLevel.MEMORY_ONLY_SER)
