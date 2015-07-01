@@ -49,6 +49,7 @@ task wrapper(type: Wrapper) {
     gradleVersion = "2.1"
 }
 
+hadoopJar.onlyIf { !project.hasProperty('skipHadoopJar') }
 
 task runSpark(dependsOn: 'hadoopJar', type: JavaExec) {
     classpath = files(hadoopJar.archivePath, configurations.providedCompile)
