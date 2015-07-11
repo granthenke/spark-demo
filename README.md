@@ -59,10 +59,10 @@ The 'runSpark' Gradle task takes two arguments '-PsparkMain' and '-PsparkArgs':
 
 Below are some sample commands for some simple demos:
 
-- SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PsparkArgs="local[2] 100"```
-- Sessionize: ```gradle runSpark -PsparkMain="com.cloudera.sa.Sessionize" -PsparkArgs="local[2]"```
-- HdfsWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.HdfsWordCount" -PsparkArgs="local[2] streaming-input"```
-- NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PsparkArgs="local[2] localhost 9999"```
+- SparkPi: ```gradle runSpark -PsparkMain="com.cloudera.sa.SparkPi" -PskipHadoopJar -PsparkArgs="local[2] 100"```
+- Sessionize: ```gradle runSpark -PsparkMain="com.cloudera.sa.Sessionize" -PskipHadoopJar  -PsparkArgs="local[2]"```
+- HdfsWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.HdfsWordCount" -PskipHadoopJar  -PsparkArgs="local[2] streaming-input"```
+- NetworkWordCount: ```gradle runSpark -PsparkMain="com.cloudera.sa.NetworkWordCount" -PskipHadoopJar  -PsparkArgs="local[2] localhost 9999"```
 
 >**Note:** 
 >   The remaining steps are only required for running demos in "pseudo-distributed" mode and on a cluster.
