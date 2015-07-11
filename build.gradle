@@ -1,9 +1,16 @@
+buildscript { apply from: file('gradle/buildscript.gradle'), to: buildscript }
+
+apply plugin: 'com.github.ben-manes.versions'
 apply from: "$rootDir/gradle/repositories.gradle"
 apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/artifacts.gradle"
 apply from: "$rootDir/gradle/avro.gradle"
 apply plugin: "idea"
 apply plugin: "eclipse"
+
+dependencyUpdates {
+    revision="release"
+}
 
 repositories {
     maven { url repos.cloudera }
@@ -46,7 +53,7 @@ test {
 
 // Gradle Wrapper Settings
 task wrapper(type: Wrapper) {
-    gradleVersion = "2.1"
+    gradleVersion = "2.5"
 }
 
 hadoopJar.onlyIf { !project.hasProperty('skipHadoopJar') }

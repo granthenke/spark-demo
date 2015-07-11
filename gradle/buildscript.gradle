@@ -1,0 +1,9 @@
+repositories {
+    repositories {
+        jcenter()
+    }
+}
+
+dependencies {
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+}

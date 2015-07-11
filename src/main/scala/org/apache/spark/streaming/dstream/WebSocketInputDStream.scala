@@ -4,12 +4,8 @@ import org.apache.spark.storage.StorageLevel
 import scalawebsocket.WebSocket
 import org.apache.spark.streaming.StreamingContext
 import scala.reflect.ClassTag
-import org.apache.spark.streaming.receiver.{Receiver, BlockGenerator}
+import org.apache.spark.streaming.receiver.Receiver
 import org.apache.spark.Logging
-import java.net.Socket
-import scala.collection.mutable
-import scala.collection.immutable.Queue
-import akka.actor.IO.Iteratee
 
 object WebSocketInputDStream {
   class WebSocketInputDStream[T: ClassTag](

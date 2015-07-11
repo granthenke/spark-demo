@@ -4,25 +4,25 @@ ext {
 }
 versions += [
         scala: "2.10",
-        spark: "1.1.0"
+        spark: "1.4.0"
 ]
 libs += [
-        avro: "org.apache.avro:avro:1.7.4",
-        avroTools: "org.apache.avro:avro-tools:1.7.4",
-        commonsLang: "org.apache.commons:commons-lang3:3.3.1",
+        avro: "org.apache.avro:avro:1.7.7",
+        avroTools: "org.apache.avro:avro-tools:1.7.7",
+        commonsLang: "org.apache.commons:commons-lang3:3.4",
         commonsIO: "commons-io:commons-io:2.4",
-        curatorTest: "org.apache.curator:curator-test:2.6.0",
-        guava: "com.google.guava:guava:14.0.1",
+        curatorTest: "org.apache.curator:curator-test:2.8.0",
+        guava: "com.google.guava:guava:18.0",
         hadoopClient: "org.apache.hadoop:hadoop-client:2.0.0-cdh4.6.0",
         jCommander: "com.beust:jcommander:1.30",
         jodaTime: "joda-time:joda-time:2.3",
-        kafkaTest: "org.apache.kafka:kafka_2.10:0.8.0:test",
+        kafkaTest: "org.apache.kafka:kafka_2.10:0.8.2.1:test",
         log4j: "log4j:log4j:1.2.17",
         openCsv: "net.sf.opencsv:opencsv:2.3",
-        parquetAvro: "com.twitter:parquet-avro:1.0.0",
-        scala: "org.scala-lang:scala-library:$versions.scala.3",
-        slf4jLog4j: "org.slf4j:slf4j-log4j12:1.7.5",
-        scalaWebSockets: "eu.piotrbuda:scalawebsocket_2.10:0.1.0", //TODO(GH): Find the best library for this
+        parquetAvro: "com.twitter:parquet-avro:1.6.0",
+        scala: "org.scala-lang:scala-library:$versions.scala.5",
+        slf4jLog4j: "org.slf4j:slf4j-log4j12:1.7.12",
+        scalaWebSockets: "eu.piotrbuda:scalawebsocket_2.10:0.1.1", //TODO(GH): Find the best library for this
         spark: "org.apache.spark:spark-core_$versions.scala:$versions.spark",
         sparkGraphX: "org.apache.spark:spark-graphx_$versions.scala:$versions.spark",
         sparkMlLib: "org.apache.spark:spark-mllib_$versions.scala:$versions.spark",
@@ -31,6 +31,6 @@ libs += [
         sparkStreamingKafka: "org.apache.spark:spark-streaming-kafka_$versions.scala:$versions.spark",
         sparkStreamingTwitter: "org.apache.spark:spark-streaming-twitter_$versions.scala:$versions.spark",
         sparkStreamingZeroMQ: "org.apache.spark:spark-streaming-zeromq_$versions.scala:$versions.spark",
-        testNG: "org.testng:testng:6.8.7",
+        testNG: "org.testng:testng:6.9.4",
         typesafeConfig: "com.typesafe:config:1.0.0"
 ]
